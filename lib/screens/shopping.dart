@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ShoppingPage extends StatefulWidget {
-  const ShoppingPage({Key? key}) : super(key: key);
+  const ShoppingPage({super.key});
 
   @override
   ShoppingPageState createState() => ShoppingPageState();

@@ -8,12 +8,12 @@ class CartItem extends StatelessWidget {
   final VoidCallback onAdd;
 
   const CartItem({
-    Key? key,
+    super.key,
     required this.product,
     required this.quantity,
     required this.onRemove,
     required this.onAdd,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

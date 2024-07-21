@@ -19,7 +19,7 @@ class Order {
 }
 
 class OrdersPage extends StatelessWidget {
-  OrdersPage({Key? key}) : super(key: key);
+  OrdersPage({super.key});
 
   final List<Order> orders = [
     Order(
@@ -120,7 +120,7 @@ class OrdersPage extends StatelessWidget {
 class OrdersList extends StatelessWidget {
   final List<Order> orders;
 
-  const OrdersList({Key? key, required this.orders}) : super(key: key);
+  const OrdersList({super.key, required this.orders});
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class OrdersList extends StatelessWidget {
 class OrderDetailPage extends StatelessWidget {
   final Order order;
 
-  const OrderDetailPage({Key? key, required this.order}) : super(key: key);
+  const OrderDetailPage({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {

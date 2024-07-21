@@ -3,7 +3,7 @@ import '../services/auth_service.dart';
 import '../models/user.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({super.key});
 
   @override
   SignUpPageState createState() => SignUpPageState();

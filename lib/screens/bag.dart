@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../widgets/cart_item.dart';
 import '../widgets/navigation_bar.dart';
+import 'search.dart';
 
 class BagPage extends StatefulWidget {
-  const BagPage({Key? key}) : super(key: key);
+  const BagPage({super.key});
 
   @override
   BagPageState createState() => BagPageState();
@@ -75,7 +76,13 @@ class BagPageState extends State<BagPage> {
 
   void _applyPromoCode(String code) {
     setState(() {
-      if (_appliedPromoCode != code) {
+      if (_appliedPromoCode == code) {
+        // Deselect the current promo code
+        _discount = 0.0;
+        _appliedPromoCode = null;
+        _message = 'Promo code removed.';
+      } else {
+        // Apply the new promo code
         switch (code) {
           case 'sale50':
             _discount = 0.50;
@@ -91,25 +98,44 @@ class BagPageState extends State<BagPage> {
             break;
         }
         _appliedPromoCode = code;
-        _message =
-            'Congratulations! Promo code "$code" applied. You saved \$${(totalAmount / (1 - _discount) - totalAmount).toStringAsFixed(2)}';
-      } else {
-        _discount = 0.0;
-        _appliedPromoCode = null;
-        _message = 'Promo code removed.';
+        _message = 'Congratulations! Promo code "$code" applied. You saved \$${(totalAmount / (1 - _discount) - totalAmount).toStringAsFixed(2)}';
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Product> allProducts = [
+      Product(
+        id: 1,
+        name: 'Shirt 1',
+        description: 'Description',
+        price: 29.99,
+        image: 'lib/images/shirt1.jpg',
+        isExclusive: false,
+      ),
+      Product(
+        id: 2,
+        name: 'Shirt 2',
+        description: 'Description',
+        price: 39.99,
+        image: 'lib/images/shirt2.jpg',
+        isExclusive: false,
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Bag'),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(products: allProducts),
+              );
+            },
           ),
         ],
       ),
@@ -139,7 +165,7 @@ class BagPageState extends State<BagPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Promo Code List
+                      // Promo Code Selection
                       Container(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         decoration: BoxDecoration(
@@ -149,8 +175,7 @@ class BagPageState extends State<BagPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _promoCodes.map((promo) {
-                            final isSelected =
-                                promo['code'] == _appliedPromoCode;
+                            final isSelected = promo['code'] == _appliedPromoCode;
                             return ListTile(
                               title: Text(promo['code']!),
                               subtitle: Text(promo['description']!),
@@ -164,10 +189,7 @@ class BagPageState extends State<BagPage> {
                       Text('Total amount: \$${totalAmount.toStringAsFixed(2)}'),
                       if (_message != null) ...[
                         const SizedBox(height: 10),
-                        Text(_message!,
-                            style: const TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold)),
+                        Text(_message!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                       ],
                       const SizedBox(height: 10),
                       ElevatedButton(

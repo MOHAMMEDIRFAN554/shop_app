@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../widgets/product_card.dart';
+import 'search.dart'; // Import the search screen
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key, required List<Product> products});
 
   @override
   HomePageState createState() => HomePageState();
@@ -33,7 +34,13 @@ class HomePageState extends State<HomePage>
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(
+                    products: products), // Use the search delegate
+              );
+            },
           ),
         ],
         bottom: TabBar(
@@ -129,7 +136,7 @@ class HomePageState extends State<HomePage>
         isExclusive: false),
     Product(
         id: 5,
-        name: 'men Shirt 5',
+        name: 'Men Shirt 5',
         description: 'Description',
         price: 59.99,
         image: 'lib/images/shirt5.jpeg',

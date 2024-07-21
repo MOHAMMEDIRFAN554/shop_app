@@ -16,7 +16,7 @@ dependencies:
   path: ^1.8.3 
   path_provider: ^2.0.1
   fluttertoast: ^8.2.1 
-  image_picker: ^0.8.7+1 
+  image_picker: ^1.1.2 
   shared_preferences: ^2.1.0 
   flutter_localizations:
     sdk: flutter
@@ -28,7 +28,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
  
 
 flutter:

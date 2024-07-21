@@ -22,7 +22,7 @@ class FavoritesPage extends StatelessWidget {
     ),
   ];
 
-  FavoritesPage({Key? key}) : super(key: key);
+  FavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
